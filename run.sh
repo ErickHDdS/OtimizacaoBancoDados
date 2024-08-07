@@ -4,7 +4,7 @@ DB_USER="postgres"
 DB_NAME="postgres"
 DB_HOST="localhost"
 DB_PORT="5432"
-export PGPASSWORD="140301"
+export PGPASSWORD="postgres"
 
 echo "Creating db structure"
 psql -U "$DB_USER" -d "$DB_NAME" -h "$DB_HOST" -p "$DB_PORT" -c "SET CLIENT_ENCODING TO 'UTF8';" -f "./migrations/0-db_structure.sql"
