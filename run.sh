@@ -4,7 +4,7 @@ DB_USER="postgres"
 DB_NAME="postgres"
 DB_HOST="localhost"
 DB_PORT="5432"
-export PGPASSWORD="postgres"
+export PGPASSWORD="140301"
 
 echo "Creating db structure"
 psql -U "$DB_USER" -d "$DB_NAME" -h "$DB_HOST" -p "$DB_PORT" -c "SET CLIENT_ENCODING TO 'UTF8';" -f "./migrations/0-db_structure.sql"
@@ -26,7 +26,9 @@ done
 
 read -p "Press enter to continue"
 
-echo "Creating indexes"
-# TODO
+echo "Creating indexes and collecting statistics from partitioned data"
+psql -U "$DB_USER" -d "$DB_NAME" -h "$DB_HOST" -p "$DB_PORT" -c "SET CLIENT_ENCODING TO 'UTF8';" -f "./migrations/4-optimize_leituras.sql"
+psql -U "$DB_USER" -d "$DB_NAME" -h "$DB_HOST" -p "$DB_PORT" -c "SET CLIENT_ENCODING TO 'UTF8';" -f "./migrations/5-optimize_radares.sql"
+
 
 unset PGPASSWORD
